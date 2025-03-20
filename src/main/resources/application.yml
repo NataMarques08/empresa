@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: empresa
+  datasource:
+    url: jdbc:mariadb://localhost:3306/empresa
+    username: root
+    password: 123
