@@ -1,4 +1,9 @@
 package com.nata.empresa.repository;
 
-public interface Repository {
+import com.nata.empresa.model.Employee;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.UUID;
+
+public interface Repository extends JpaRepository<Employee, UUID> {
 }
