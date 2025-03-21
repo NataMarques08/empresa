@@ -40,7 +40,7 @@ public class Employee implements Serializable {
     @NotNull
     private Date admission;
     private Date termination;
-    @NotNull
+    @Enumerated(EnumType.STRING)
     private Gender gender;
 /*
     public Employee() {

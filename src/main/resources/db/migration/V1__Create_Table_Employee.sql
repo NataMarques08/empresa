@@ -7,5 +7,5 @@ CREATE TABLE employee
     salary DECIMAL(10,2),
     admission DATE,
     termination DATE,
-    gender char(2),
+    gender char(2)
 );

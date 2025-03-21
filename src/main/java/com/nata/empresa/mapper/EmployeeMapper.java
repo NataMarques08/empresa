@@ -5,9 +5,11 @@ import com.nata.empresa.model.Employee;
 import org.mapstruct.Mapper;
 import org.springframework.core.convert.converter.Converter;
 
-@Mapper
+import java.util.List;
+
+@Mapper(componentModel = "spring")
 public interface EmployeeMapper {
 
-    public EmployeeDTO convertEntitiToDTO(Employee employee);
-
+     EmployeeDTO convertDtoToEntity(Employee employee);
+     List<EmployeeDTO> convertEntityListToDTO(List<Employee> person);
 }
