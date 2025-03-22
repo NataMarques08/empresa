@@ -23,14 +23,18 @@ public class EmployeeController {
     @PostMapping("/save")
     @Transactional
     public ResponseEntity<EmployeeDTO> create(@RequestBody @Valid EmployeeDTO employeeDTO){
-        System.out.println("NATÃ SEE THE DTO INPUT HERE ------------- "+employeeDTO);
+
         return ResponseEntity.status(HttpStatus.CREATED).body(service.create(employeeDTO));
     }
 
     @GetMapping("/getAll")
     public ResponseEntity<List<EmployeeDTO>> findAll(){
-        var results = service.findAll();
-        return ResponseEntity.status(HttpStatus.OK).body(results);
+        return ResponseEntity.status(HttpStatus.OK).body(service.findAll());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<EmployeeDTO> findById(@PathVariable Long id){
+        return ResponseEntity.status(HttpStatus.OK).body(service.findById(id));
     }
 
 }
