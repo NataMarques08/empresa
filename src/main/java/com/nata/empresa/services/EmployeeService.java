@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EmployeeService {
@@ -36,6 +37,28 @@ public class EmployeeService {
         Employee employee = mapper.convertDtoToEntity(employeeDTO);
         Employee saveEmployee = repository.save(employee);
         return  mapper.convertEntityToDTO(saveEmployee);
+    }
+
+    public EmployeeDTO update(Long id, EmployeeDTO employeeDTO) {
+        Optional<Employee> entity = repository.findById(id);
+        if (entity.isEmpty()) {
+            throw new RuntimeException("Employee not found with ID: " + id); // Or use a custom exception
+        }
+
+        Employee employee = entity.get();
+        employee.setName(employeeDTO.name());
+        employee.setLastname(employeeDTO.lastname());
+        employee.setOccupation(employeeDTO.occupation());
+        employee.setSalary(employeeDTO.salary());
+        employee.setAdmission(employeeDTO.admission());
+        employee.setTermination(employeeDTO.termination());
+        employee.setGender(employeeDTO.gender());
+        return mapper.convertEntityToDTO(repository.save(employee));
+    }
+
+    public void delete(Long id) {
+        var entity = repository.findById(id);
+        repository.delete(entity.orElseThrow(() -> new EntityNotFoundException("Employee with id " + id + " not found")));
     }
 
 

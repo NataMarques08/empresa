@@ -37,4 +37,17 @@ public class EmployeeController {
         return ResponseEntity.status(HttpStatus.OK).body(service.findById(id));
     }
 
+    @PutMapping("/update/{id}")
+    @Transactional
+    public ResponseEntity<EmployeeDTO> update(@PathVariable("id") Long id,
+                                              @RequestBody @Valid EmployeeDTO employeeDTO){
+        return ResponseEntity.status(HttpStatus.OK).body(service.update(id, employeeDTO));
+    }
+
+    @DeleteMapping("/delete/{id}")
+    @Transactional
+    public ResponseEntity<Void> delete(@PathVariable("id") Long id){
+        service.delete(id);
+        return ResponseEntity.noContent().build();
+    }
 }
