@@ -25,8 +25,10 @@ public class EmployeeService {
         return mapper.convertEntityListToDTO(repository.findAll());
     }
 
-    public EmployeeDTO create(EmployeeDTO employee) {
-        return mapper.convertDtoToEntity(repository.save(new Employee()));
+    public EmployeeDTO create(EmployeeDTO employeeDTO) {
+        Employee employee = mapper.convertDtoToEntity(employeeDTO);
+        Employee saveEmployee = repository.save(employee);
+        return  mapper.convertEntityToDTO(saveEmployee);
     }
 
 

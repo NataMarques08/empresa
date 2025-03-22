@@ -6,34 +6,30 @@ import com.nata.empresa.model.types.Occupation;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.*;
+
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
-import java.util.UUID;
+
 
 @Table(name = "employee")
 @Entity(name = "Employee")
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode
 public class Employee implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     @NotBlank
     private String name;
     @NotBlank
     private String lastname;
     @NotNull
+    @Enumerated(EnumType.STRING)
     private Occupation occupation;
     @NotNull
     private Double salary;
@@ -42,11 +38,11 @@ public class Employee implements Serializable {
     private Date termination;
     @Enumerated(EnumType.STRING)
     private Gender gender;
-/*
+
     public Employee() {
     }
 
-    public Employee(UUID id, String name, String lastname, Occupation occupation, Double salary,
+    public Employee(Long id, String name, String lastname, Occupation occupation, Double salary,
                     Date admission, Date termination, Gender gender) {
         this.id = id;
         this.name = name;
@@ -58,14 +54,14 @@ public class Employee implements Serializable {
         this.gender = gender;
     }
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
-/*
-    public void setId(UUID id) {
+
+    public void setId(Long id) {
         this.id = id;
-    }*/
-/*
+    }
+
     public String getName() {
         return name;
     }
@@ -132,5 +128,7 @@ public class Employee implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(id, name, lastname, occupation, salary, admission, termination, gender);
-    }*/
+    }
+
+
 }

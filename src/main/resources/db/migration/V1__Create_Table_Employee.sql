@@ -1,6 +1,6 @@
 CREATE TABLE employee
 (
-    id BINARY(16) PRIMARY KEY,
+    id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(30),
     lastname VARCHAR(50),
     occupation VARCHAR(100),
