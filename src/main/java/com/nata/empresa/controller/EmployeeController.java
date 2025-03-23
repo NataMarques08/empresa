@@ -3,12 +3,18 @@ package com.nata.empresa.controller;
 import com.nata.empresa.data.dto.EmployeeDTO;
 import com.nata.empresa.model.Employee;
 import com.nata.empresa.services.EmployeeService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Link;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,12 +26,28 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping("/api/v1")
+@Tag(name = "Employee", description = "Endpoints for Mapping employee")
 public class EmployeeController {
 
     @Autowired
     private EmployeeService service;
 
-    @PostMapping("/save")
+    @PostMapping(
+            value = "/save",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    @Operation(
+            summary = "Create a new employee",
+            description = "This method saves a new employee and return the employee",
+            responses = {
+                    @ApiResponse(responseCode = "201", description = "Created", content = @Content),
+                    @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content),
+                    @ApiResponse(responseCode = "403", description = "Forbidden", content = @Content),
+                    @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content)
+            }
+
+    )
     @Transactional
     public ResponseEntity<EmployeeDTO> create(@RequestBody @Valid EmployeeDTO employeeDTO){
         var createEmployee = service.create(employeeDTO);

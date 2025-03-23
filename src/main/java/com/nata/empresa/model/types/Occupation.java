@@ -1,7 +1,7 @@
 package com.nata.empresa.model.types;
 
 public enum Occupation {
-    CCOUNTANT,
+    ACCOUNTANT,
     ACTUARY,
     ADMINISTRATOR,
     ANALYST,
@@ -50,5 +50,6 @@ public enum Occupation {
     TAX_ADVISOR,
     TRAINING_COORDINATOR,
     WEB_ANALYST,
+    CONSULTOR,
     UX_DESIGNER;
 }
