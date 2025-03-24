@@ -1,3 +1,5 @@
+cors:
+  originPattern: "http://localhost:8080"
 spring:
   application:
     name: empresa

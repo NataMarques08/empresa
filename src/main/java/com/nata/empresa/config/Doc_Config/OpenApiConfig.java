@@ -1,4 +1,4 @@
-package com.nata.empresa.config;
+package com.nata.empresa.config.Doc_Config;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
