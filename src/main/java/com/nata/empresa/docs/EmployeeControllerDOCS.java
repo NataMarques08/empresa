@@ -8,6 +8,8 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
+
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,7 +44,10 @@ public interface EmployeeControllerDOCS {
                     @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content)
             }
     )
-    ResponseEntity<List<EmployeeDTO>> findAll();
+    ResponseEntity<Page<EmployeeDTO>> findAll(
+        @RequestParam(value = "page",defaultValue = "0") Integer page, 
+        @RequestParam(value = "size",defaultValue = "12") Integer size 
+    );
 
 
     @Operation(

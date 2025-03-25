@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -40,17 +41,20 @@ public class EmployeeController implements EmployeeControllerDOCS {
     }
 
     @GetMapping(
-            value = "/getAll",
-            produces = MediaType.APPLICATION_JSON_VALUE
-    )
-    @Override
-    public ResponseEntity<List<EmployeeDTO>> findAll(){
-        var employees = service.findAll();
-        for (EmployeeDTO employeeDTO : employees) {
-            addHateoasLink(null, employeeDTO);
+                value = "/getAll",
+                produces = MediaType.APPLICATION_JSON_VALUE
+        )
+        @Override
+        public ResponseEntity<Page<EmployeeDTO>> findAll(
+            @RequestParam(value = "page",defaultValue = "0") Integer page, 
+            @RequestParam(value = "size",defaultValue = "12") Integer size 
+        ){
+            var employees = service.findAll();
+            for (EmployeeDTO employeeDTO : employees) {
+                addHateoasLink(null, employeeDTO);
+            }
+            return ResponseEntity.status(HttpStatus.OK).body(employees);
         }
-        return ResponseEntity.status(HttpStatus.OK).body(employees);
-    }
 
     @GetMapping("/{id}")
     @Override
