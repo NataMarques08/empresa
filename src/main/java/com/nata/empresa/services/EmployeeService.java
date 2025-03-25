@@ -7,16 +7,11 @@ import com.nata.empresa.model.Employee;
 import com.nata.empresa.repository.RepositoryEmployee;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import org.springframework.hateoas.Link;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Optional;
-
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Service
 public class EmployeeService {
@@ -28,8 +23,8 @@ public class EmployeeService {
     EmployeeMapper mapper;
 
 
-    public List<EmployeeDTO> findAll(){
-        return mapper.convertEntityListToDTO(repository.findAll());
+    public Page<EmployeeDTO> findAll(Pageable pageable) {
+            return repository.findAll(pageable).map(mapper::convertEntityToDTO);
     }
 
     public EmployeeDTO findById(Long id){

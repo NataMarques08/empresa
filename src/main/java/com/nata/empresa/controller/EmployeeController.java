@@ -11,6 +11,9 @@ import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -47,9 +50,13 @@ public class EmployeeController implements EmployeeControllerDOCS {
         @Override
         public ResponseEntity<Page<EmployeeDTO>> findAll(
             @RequestParam(value = "page",defaultValue = "0") Integer page, 
-            @RequestParam(value = "size",defaultValue = "12") Integer size 
+            @RequestParam(value = "size",defaultValue = "12") Integer size,
+            @RequestParam(value = "direction", defaultValue = "ASC") String direction,
+            @RequestParam(value = "sortBy", defaultValue = "id") String sortBy
         ){
-            var employees = service.findAll();
+            Sort sort = direction.equalsIgnoreCase("DESC") ? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
+            Pageable pageable = PageRequest.of(page, size,sort);
+            Page<EmployeeDTO> employees = service.findAll(pageable);
             for (EmployeeDTO employeeDTO : employees) {
                 addHateoasLink(null, employeeDTO);
             }

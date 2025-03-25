@@ -46,7 +46,9 @@ public interface EmployeeControllerDOCS {
     )
     ResponseEntity<Page<EmployeeDTO>> findAll(
         @RequestParam(value = "page",defaultValue = "0") Integer page, 
-        @RequestParam(value = "size",defaultValue = "12") Integer size 
+        @RequestParam(value = "size",defaultValue = "12") Integer size,
+        @RequestParam(value = "direction", defaultValue = "ASC") String direction,
+        @RequestParam(value = "sortBy", defaultValue = "id") String sortBy
     );
 
 
@@ -95,7 +97,7 @@ public interface EmployeeControllerDOCS {
         employeeDTO.add(linkTo(methodOn(EmployeeController.class).findById(id)).withSelfRel().withType("GET"));
         employeeDTO.add(linkTo(methodOn(EmployeeController.class).delete(id)).withRel("delete").withType("DELETE"));
         employeeDTO.add(linkTo(methodOn(EmployeeController.class).update(id, employeeDTO)).withRel("update").withType("PUT"));
-        employeeDTO.add(linkTo(methodOn(EmployeeController.class).findAll()).withRel("findAll").withType("GET"));
+        employeeDTO.add(linkTo(methodOn(EmployeeController.class).findAll(0, 12, "ASC", "id")).withRel("findAll").withType("GET"));
         employeeDTO.add(linkTo(methodOn(EmployeeController.class).create(employeeDTO)).withRel("create").withType("POST"));
     }
 }
