@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.http.HttpStatus;
 
 @ResponseStatus(HttpStatus.NOT_FOUND)
-public class FileStorageExceptions {
+public class FileStorageExceptions extends RuntimeException {
     
     public FileStorageExceptions(String message) {
         super(message);
