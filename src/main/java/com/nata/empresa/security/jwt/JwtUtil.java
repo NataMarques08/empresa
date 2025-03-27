@@ -7,28 +7,34 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTCreationException;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 
-@Component
+
 @FunctionalInterface
 interface ClaimsResolver<T> {
     T apply(Claims claims);
 }
-
+@Component
 public class JwtUtil {
 
     @Value("${api.security.token.secret}")
     private String secretKey;
     private static final long EXPIRATION_TIME = 86400000;
-
+    
+    private static final Key key = Keys.secretKeyFor(io.jsonwebtoken.SignatureAlgorithm.HS256);
 
     private Key getSigningKey(){
-        return Keys.hmacShaKeyFor(secretKey.getBytes());
+        return key;
     }
 
     public String generateToken(UserDetails userDetails){
+
         return Jwts.builder()
                 .setSubject(userDetails.getUsername())
                 .signWith(getSigningKey())

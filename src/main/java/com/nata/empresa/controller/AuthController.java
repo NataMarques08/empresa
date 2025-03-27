@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nata.empresa.data.dto.AuthRequestDTO;
 import com.nata.empresa.data.dto.AuthResponseDTO;
+import com.nata.empresa.data.dto.RegisterRequestDTO;
 import com.nata.empresa.security.jwt.JwtUtil;
 import com.nata.empresa.services.CustomUserDetailsService;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,6 +33,11 @@ public class AuthController {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(requestDTO.getUsername(), requestDTO.getPassword()));
         UserDetails userDetails = userDetailsService.loadUserByUsername(requestDTO.getUsername());
         return new AuthResponseDTO(jwtUtil.generateToken(userDetails));
+    }
+    
+    @PostMapping("/register")
+    public String register(@RequestBody RegisterRequestDTO requestDTO){
+        return userDetailsService.registerUser(requestDTO);
     }
     
 
