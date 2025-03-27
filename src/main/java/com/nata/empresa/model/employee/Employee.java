@@ -1,4 +1,4 @@
-package com.nata.empresa.model;
+package com.nata.empresa.model.employee;
 
 
 import com.nata.empresa.model.types.Gender;

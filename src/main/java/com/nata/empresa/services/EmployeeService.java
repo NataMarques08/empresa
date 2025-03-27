@@ -3,7 +3,7 @@ package com.nata.empresa.services;
 
 import com.nata.empresa.data.dto.EmployeeDTO;
 import com.nata.empresa.mapper.EmployeeMapper;
-import com.nata.empresa.model.Employee;
+import com.nata.empresa.model.employee.Employee;
 import com.nata.empresa.repository.RepositoryEmployee;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;

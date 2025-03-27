@@ -1,7 +1,8 @@
 package com.nata.empresa.mapper;
 
 import com.nata.empresa.data.dto.EmployeeDTO;
-import com.nata.empresa.model.Employee;
+import com.nata.empresa.model.employee.Employee;
+
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
