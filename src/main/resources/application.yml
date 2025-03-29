@@ -1,3 +1,5 @@
+#server:
+#  port: 80*/
 cors:
   originPattern: "http://localhost:8080"
 spring:
